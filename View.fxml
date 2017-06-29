@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This JavaFX skeleton is provided for the Databases Laboratory course. 
+	Its structure should provide a general guideline for the students. As suggested 
+	by the JavaFX model, we'll have a GUI/view (this one), a controller class 
+	and a model. -->
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.collections.FXCollections ?>
+<?import java.lang.String ?>
+<?import javafx.scene.control.DatePicker?>
+
+<!-- All the GUI components -->
+<!-- Root (vertical box) layout -->
+
+<VBox fx:id="rootLayout" alignment="CENTER" minHeight="460" minWidth="600" prefHeight="460" prefWidth="600" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+
+	<!-- Set padding values -->
+	<padding>
+		<Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+	</padding>
+   <children>
+   
+   	<!-- Connection panel -->
+   	<HBox fx:id="connectionLayout" alignment="CENTER" spacing="10">
+      <children>
+      
+      		<!-- Username field -->
+      		<TextField fx:id="usernameField" maxHeight="27" maxWidth="200" minHeight="27" minWidth="100" onAction="#connectEventHandler" prefHeight="27" prefWidth="150" />
+      
+      		<!-- Password field -->
+      		<TextField fx:id="passwordField" maxHeight="27" maxWidth="200" minHeight="27" minWidth="100" onAction="#connectEventHandler" prefHeight="27" prefWidth="150" />
+      
+      		<!-- Connect button -->
+      		<Button fx:id="connectButton" onAction="#connectEventHandler" prefWidth="80" text="Connect" />
+      
+      		<!-- Label to show the connection status -->
+      		<Label fx:id="connectionStateLabel" minHeight="17" minWidth="200" prefHeight="17" prefWidth="200" />
+      </children>
+   
+   	</HBox>
+   
+   	<!-- Tabbed panel -->
+   	<TabPane>
+   		<tabs>
+   			<!-- Search tab -->
+   			<Tab fx:id="searchTab" closable="False" text=" Search ">
+      <content>
+      
+      				<!-- Search panel -->
+      				<VBox spacing="10">
+      					<padding>
+      						<Insets bottom="10" left="0" right="0" top="10.0" />
+      					</padding>
+         <children>
+         
+         					<!-- Search input panel -->
+         					<HBox alignment="CENTER" spacing="10">
+            <children>
+            
+            						<!-- Search keyword field -->
+            						<TextField fx:id="searchTextField" onAction="#searchEventHandler" HBox.hgrow="ALWAYS" />
+            
+            						<!-- Search button -->
+            						<Button onAction="#searchEventHandler" text="Search" />
+            </children>
+         
+         					</HBox>
+         
+         					<!-- Search table (scrollable by default) -->
+         					<TableView fx:id="searchTable" editable="false">
+         						<columns>
+         							<!-- Search tablaban talalhato oszlopok -->
+         							<TableColumn fx:id="vonatszamColumn" text="Vonatszam" />
+         							<TableColumn fx:id="tipusColumn" text="Tipus" />
+         							<TableColumn fx:id="megjegyzesColumn" text="Megjegyzes" />
+         						</columns>
+         					</TableView>
+         </children>
+      
+      				</VBox>
+      </content>
+   
+   			</Tab>
+
+   
+   			<Tab fx:id="editTab" closable="False" text=" Edit ">
+      <content>
+      				<GridPane hgap="10" vgap="10">
+         <children>
+         					<Label prefHeight="17.0" prefWidth="234.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+						Vonatszam TextBox:
+					</Label>
+			 				<Label GridPane.columnIndex="0" GridPane.rowIndex="2">
+						Tipus ComboBox:
+					</Label>
+			 				<Label GridPane.columnIndex="0" GridPane.rowIndex="3">
+			 			Nap TextBox:
+					</Label>
+			 				<Label GridPane.columnIndex="0" GridPane.rowIndex="4">
+			 			Kezd TextBox:
+					</Label>
+			 				<Label GridPane.columnIndex="0" GridPane.rowIndex="5">
+			 			Vege TextBox:
+					</Label>
+			 				<Label GridPane.columnIndex="0" GridPane.rowIndex="6">
+			 			Megjegyzes TextBox:
+					</Label>
+         					<TextField fx:id="vonatszamTextField" prefWidth="276.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+			 				<ComboBox fx:id="tipusCombo"  prefWidth="149.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+							<TextField fx:id="napTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+							<TextField fx:id="kezdTextField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+							<TextField fx:id="vegeTextField" promptText="YYYY-MM-DD" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+							<TextField fx:id="megjegyzesTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+         					<HBox spacing="10" GridPane.columnSpan="2" GridPane.rowIndex="8">
+            <children>
+            						<Button fx:id="commitBtn" disable="true" onAction="#commitEventHandler" text="Commit" />
+            						<Button onAction="#editEventHandler" text="Edit" />
+            </children>
+         					</HBox>
+                        <Label fx:id="errorLabel" GridPane.columnIndex="1" GridPane.rowIndex="9">
+
+					</Label>
+
+
+         </children>
+                     <columnConstraints>
+                        <ColumnConstraints maxWidth="230.0" minWidth="149.0"/>
+                        <ColumnConstraints maxWidth="361.0" minWidth="281.0"/>
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+      
+      				</GridPane>
+      </content>
+   
+   			</Tab>
+   
+   			<Tab closable="False" text=" Statistics">
+      <content>
+      
+      				<!-- Search panel -->
+      				<VBox spacing="10">
+      					<padding>
+      						<Insets bottom="10" left="0" right="0" top="10.0" />
+      					</padding>
+         <children>
+         
+         
+         					<HBox alignment="CENTER" spacing="10">
+            <children>
+            
+            						<Button onAction="#statisticsEventHandler" text="statistics" />
+            </children>
+         
+         					</HBox>
+         
+         					<TableView fx:id="statisticsTable" editable="false">
+         						<columns>
+						<!-- TODO: add columns -->
+									<TableColumn fx:id="vonatszamStatColumn" text="Vonatszam" />
+						</columns>
+         					</TableView>
+         </children>
+      
+      				</VBox>
+      </content>
+   
+   			</Tab>
+   
+   		</tabs>
+   	</TabPane>
+   </children>
+
+</VBox>
